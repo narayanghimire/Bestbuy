@@ -54,8 +54,8 @@ def make_an_order(store):
         try:
             total_price = store.order(order_list)
             print(f"Order made! Total payment: ${total_price}")
-        except Exception as e:
-            print(f"Order error: {e}")
+        except Exception as order_error:
+            print(f"Order error: {order_error}")
 
 
 def start(store):

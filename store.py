@@ -11,6 +11,7 @@ class Store:
             Initializes the Store object.
         """
         self._products = products
+        self._order_history = []
 
     def add_product(self, product: Product):
         """
@@ -43,4 +44,5 @@ class Store:
         total_price = 0.0
         for product, quantity in shopping_list:
             total_price += product.buy(quantity)
+        self._order_history.append((shopping_list, total_price))
         return total_price
