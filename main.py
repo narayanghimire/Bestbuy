@@ -3,17 +3,26 @@ from store import Store
 
 
 def list_all_products(store):
+    """
+       List all active products in the store.
+    """
     products = store.get_all_products()
     for product in products:
         print(product.show())
 
 
 def show_total_amount(store):
+    """
+       show total amount of products in the store.
+    """
     total_quantity = store.get_total_quantity()
     print(f"Total quantity in store: {total_quantity}")
 
 
 def make_an_order(store):
+    """
+       make an order and return the total price of the order
+    """
     products = store.get_all_products()
     print("Available products:")
     for idx, product in enumerate(products):
@@ -50,6 +59,9 @@ def make_an_order(store):
 
 
 def start(store):
+    """
+        Start the user interface for the store.
+    """
     while True:
         print("Store Menu")
         print("----------")
