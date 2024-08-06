@@ -40,3 +40,6 @@ class Product:
         total_price = quantity * self._price
         self.set_quantity(self._quantity - quantity)
         return total_price
+
+    def get_name(self):
+        return self._name
