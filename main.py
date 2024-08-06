@@ -51,14 +51,8 @@ def make_an_order(store):
             continue
 
     if order_list:
-        try:
-            total_price = store.order(order_list)
-            print(f"Order made! Total payment: ${total_price}")
-        except ValueError as value_error:
-            print(f"Order error: {value_error}")
-        except Exception as general_error:
-            print(f"Unexpected error: {general_error}")
-
+        total_price = store.order(order_list)
+        print(f"Order made! Total payment: ${total_price}")
 
 def start(store):
     """
