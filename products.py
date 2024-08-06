@@ -2,6 +2,7 @@ class Product:
     """
     Show a different type of product available in the store.
     """
+
     def __init__(self, name: str, price: float, quantity: int):
         """
          Initializes the Product  object via constructor.
@@ -72,3 +73,45 @@ class Product:
         total_price = quantity * self._price
         self.set_quantity(self._quantity - quantity)
         return total_price
+
+
+class NonStockedProduct(Product):
+    """
+        Represents a product that is not physically stocked.
+     """
+
+    def __init__(self, name: str, price: float):
+        super().__init__(name, price, quantity=0)
+
+    def show(self) -> str:
+        """
+        Returns a string  of the non-stocked product.
+        """
+        return f"{self._name} (Non-Stocked), Price: {self._price}"
+
+    def buy(self, quantity: int) -> float:
+        """
+        Cannot buy a non-stocked product.
+        """
+        raise Exception("Non-stocked products cannot be bought.")
+
+
+class LimitedProduct(Product):
+    """
+        Represents a product that is  limited stocked.
+     """
+
+    def __init__(self, name: str, price: float, quantity: int, maximum: int):
+        super().__init__(name, price, quantity)
+        self._maximum = maximum
+
+    def show(self) -> str:
+        """
+        Returns a string  of the non-stocked product.
+        """
+        return f"{self._name} (Limited), Price: {self._price}, Quantity: {self._quantity}, Max Purchase: {self._maximum}"
+
+    def buy(self, quantity: int) -> float:
+        if quantity > self._maximum:
+            raise ValueError(f"Cannot buy more than {self._maximum} of this product.")
+        return super().buy(quantity)
