@@ -1,3 +1,6 @@
+from promotion import Promotion
+
+
 class Product:
     """
     Show a different type of product available in the store.
@@ -18,6 +21,7 @@ class Product:
         self._price = price
         self._quantity = quantity
         self._active = True
+        self._promotion = None
 
     def get_quantity(self) -> int:
         """
@@ -34,6 +38,22 @@ class Product:
         self._quantity = quantity
         if self._quantity == 0:
             self.deactivate()
+
+    @property
+    def price(self) -> float:
+        """
+        Returns the price of the product.
+        """
+        return self._price
+
+    @price.setter
+    def price(self, price: float):
+        """
+        Sets the price of the product. The price must be non-negative.
+        """
+        if price < 0:
+            raise ValueError("Price cannot be negative.")
+        self._price = price
 
     def is_active(self) -> bool:
         """
@@ -53,11 +73,22 @@ class Product:
         """
         self._active = False
 
+    @property
+    def promotion(self):
+        return self._promotion
+
+    @promotion.setter
+    def promotion(self, promotion):
+        if promotion is not None and not isinstance(promotion, Promotion):
+            raise ValueError("Promotion must be an instance of Promotion.")
+        self._promotion = promotion
+
     def show(self) -> str:
         """
         show the product as a string
         """
-        return f"{self._name}, Price: {self._price}, Quantity: {self._quantity}"
+        promo_info = f", Promotion: {self._promotion.name}" if self._promotion else ""
+        return f"{self._name}, Price: {self._price}, Quantity: {self._quantity}{promo_info}"
 
     def buy(self, quantity: int) -> float:
         """
@@ -70,7 +101,11 @@ class Product:
         if quantity > self._quantity:
             raise ValueError("Not enough stock to complete the purchase.")
 
-        total_price = quantity * self._price
+        if self._promotion:
+            total_price = self._promotion.apply_promotion(self, quantity)
+        else:
+            total_price = quantity * self._price
+
         self.set_quantity(self._quantity - quantity)
         return total_price
 

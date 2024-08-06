@@ -1,4 +1,5 @@
 from products import Product, NonStockedProduct, LimitedProduct
+from promotion import BuyTwoGetOneFreePromotion, PercentageDiscountPromotion
 from store import Store
 
 
@@ -54,6 +55,7 @@ def make_an_order(store):
         total_price = store.order(order_list)
         print(f"Order made! Total payment: ${total_price}")
 
+
 def start(store):
     """
         Start the user interface for the store.
@@ -79,7 +81,7 @@ def start(store):
                 break
             else:
                 print("wrong choice, please try again.")
-        except ValueError as value_error :
+        except ValueError as value_error:
             print(f"{value_error}: wrong input, please enter a correct number")
             break
 
@@ -92,5 +94,13 @@ if __name__ == "__main__":
         NonStockedProduct("Windows License", price=125),
         LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
     ]
+    third_one_free = BuyTwoGetOneFreePromotion("Buy 2, Get 1 Free")
+    thirty_percent = PercentageDiscountPromotion("30% Off", discount_percentage=30)
+
+    product_list[1].promotion = third_one_free
+    product_list[2].promotion = thirty_percent
+
+    best_buy = Store(product_list)
+    start(best_buy)
     best_buy = Store(product_list)
     start(best_buy)
