@@ -44,7 +44,10 @@ def make_an_order(store):
             if quantity <= 0:
                 print("Quantity must be positive, please try again.")
                 continue
-
+            chosen_product = products[product_choice - 1]
+            if quantity > chosen_product.get_quantity():
+                print(f"Not enough stock for {product_choice}. Available quantity: {chosen_product.get_quantity()}")
+                continue
             order_list.append((products[product_choice - 1], quantity))
         except ValueError:
             print("Invalid input, please enter numbers only.")
@@ -87,7 +90,10 @@ def start(store):
             print("wrong input, please enter a number.")
 
 
-if __name__ == "__main__":
+def main():
+    """
+        Main function to set up the store and start the interface.
+        """
     product_list = [
         Product("MacBook Air M2", price=1450, quantity=100),
         Product("Bose QuietComfort Earbuds", price=250, quantity=500),
@@ -95,3 +101,6 @@ if __name__ == "__main__":
     ]
     best_buy = Store(product_list)
     start(best_buy)
+
+if __name__ == "__main__":
+    main()
