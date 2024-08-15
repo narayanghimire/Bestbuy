@@ -38,3 +38,19 @@ class BuyTwoGetOneFreePromotion(Promotion):
         num_full_price_items = quantity - (quantity // 3)
         total_price = num_full_price_items * product.price
         return total_price
+
+
+class SecondHalfPrice(Promotion):
+    def __init__(self, name: str):
+        super().__init__(name)
+
+    def apply_promotion(self, product, quantity: int) -> float:
+        """
+        Applies the second half price promotion to the product.
+        Every second item in a pair is half-price.
+        """
+        full_price_items = quantity // 2
+        half_price_items = quantity % 2
+
+        total_price = (full_price_items * product.price) + (half_price_items * product.price / 2)
+        return total_price

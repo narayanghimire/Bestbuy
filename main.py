@@ -1,5 +1,5 @@
 from products import Product, NonStockedProduct, LimitedProduct
-from promotion import BuyTwoGetOneFreePromotion, PercentageDiscountPromotion
+from promotion import BuyTwoGetOneFreePromotion, PercentageDiscountPromotion, SecondHalfPrice
 from store import Store
 
 
@@ -96,9 +96,11 @@ if __name__ == "__main__":
     ]
     third_one_free = BuyTwoGetOneFreePromotion("Buy 2, Get 1 Free")
     thirty_percent = PercentageDiscountPromotion("30% Off", discount_percentage=30)
+    second_half_price = SecondHalfPrice("Second Half Price")
 
     product_list[1].promotion = third_one_free
     product_list[2].promotion = thirty_percent
+    product_list[0].promotion = second_half_price
 
     best_buy = Store(product_list)
     start(best_buy)
